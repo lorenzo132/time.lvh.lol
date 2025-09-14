@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Edit Record{% endblock %}
+{% block content %}
+  <a class="btn btn-link p-0 mb-3" href="{{ url_for('index') }}">← Back</a>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h1 class="h4 mb-3">Edit Record</h1>
+      <form method="POST" action="{{ url_for('edit', record_id=record['id']) }}" class="row g-3">
+        <div class="col-md-5">
+          <label for="name" class="form-label">Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" class="form-control" id="name" name="name" value="{{ record['name'] }}" required>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label for="date_display" class="form-label">Date</label>
+          <div class="input-group">
+            <span class="input-group-text btn-like" data-action="open-picker" data-target="date_display" data-picker="date_picker" title="Pick date"><i class="bi bi-calendar-event"></i></span>
+            {% set iso = record['date'] or '' %}
+            <input type="text" class="form-control date-input" id="date_display" placeholder="DD-MM-YYYY" autocomplete="off" value="{% if iso %}{{ iso[8:10] }}-{{ iso[5:7] }}-{{ iso[0:4] }}{% endif %}">
+            <input type="hidden" id="date" name="date" value="{{ iso }}">
+            <input type="date" id="date_picker" class="picker-proxy" data-sync-to="date_display" data-sync-iso="date">
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <label for="start_time" class="form-label">Start</label>
+          <div class="input-group">
+            <span class="input-group-text btn-like" data-action="open-picker" data-target="start_time" data-picker="start_time_picker" title="Pick time"><i class="bi bi-clock"></i></span>
+            <input type="text" class="form-control time-input" id="start_time" name="start_time" value="{{ record['start_time'] }}" required pattern="\d{2}:\d{2}" placeholder="HH:MM" autocomplete="off">
+            <input type="time" id="start_time_picker" data-sync-to="start_time" class="picker-proxy">
+            <button type="button" class="btn btn-outline-secondary icon-btn" data-action="fill-now" data-target="start_time" title="Now"><i class="bi bi-lightning"></i></button>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <label for="end_time" class="form-label">End</label>
+          <div class="input-group">
+            <span class="input-group-text btn-like" data-action="open-picker" data-target="end_time" data-picker="end_time_picker" title="Pick time"><i class="bi bi-clock-history"></i></span>
+            <input type="text" class="form-control time-input" id="end_time" name="end_time" value="{{ record['end_time'] }}" required pattern="\d{2}:\d{2}" placeholder="HH:MM" autocomplete="off">
+            <input type="time" id="end_time_picker" data-sync-to="end_time" class="picker-proxy">
+            <button type="button" class="btn btn-outline-secondary icon-btn" data-action="fill-now" data-target="end_time" title="Now"><i class="bi bi-lightning"></i></button>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label for="break_minutes" class="form-label">Break (minutes)</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-cup-hot"></i></span>
+            <input type="number" class="form-control" id="break_minutes" name="break_minutes" value="{{ record['break_minutes'] | int }}" min="0">
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <a class="btn btn-outline-secondary" href="{{ url_for('index') }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

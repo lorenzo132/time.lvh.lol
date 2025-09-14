@@ -4,6 +4,12 @@ from datetime import datetime, timedelta, date as date_cls
 import os
 import json
 import uuid
+try:
+    from dotenv import load_dotenv  # type: ignore
+    load_dotenv()
+except Exception:
+    # dotenv is optional; ignore if not installed
+    pass
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY", "dev-secret-key")

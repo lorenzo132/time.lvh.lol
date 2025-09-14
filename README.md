@@ -52,6 +52,15 @@ Tips:
 	python app.py
 	```
 
+	## Environment file
+
+	This project supports loading environment variables from a `.env` file (using `python-dotenv`).
+
+	1. Copy `.env.example` to `.env`.
+	2. Adjust values as needed.
+
+	The `.env` file is ignored by git.
+
 ## Per-IP behavior and proxies
 
 This app isolates data by client IP. When running behind a reverse proxy (nginx, Cloudflare, etc.), set:

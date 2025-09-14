@@ -263,4 +263,16 @@ def delete(record_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Allow overriding host/port/debug via environment variables for local runs
+    # PORT: numeric port (default 5000)
+    # HOST: bind address (default 127.0.0.1)
+    # DEBUG or FLASK_DEBUG: enable debug when set to 1/true/yes (default False)
+    host = os.environ.get("HOST", "127.0.0.1")
+    port_env = os.environ.get("PORT")
+    try:
+        port = int(port_env) if port_env else 5000
+    except (TypeError, ValueError):
+        port = 5000
+    debug_env = os.environ.get("FLASK_DEBUG") or os.environ.get("DEBUG")
+    debug = str(debug_env).lower() in {"1", "true", "yes"}
+    app.run(host=host, port=port, debug=debug)

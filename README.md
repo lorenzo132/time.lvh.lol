@@ -38,6 +38,19 @@ Open http://127.0.0.1:5000/ in your browser.
 Tips:
 - Data is saved to `data.json` in the project directory (git-ignored).
 - Set `FLASK_SECRET_KEY` to customize the session key used for flash messages.
+- You can change the port via environment variables when running locally:
+
+	- `PORT`: port number (default 5000)
+	- `HOST`: bind address (default 127.0.0.1)
+	- `DEBUG` or `FLASK_DEBUG`: set to 1/true/yes to enable debug
+
+	Example:
+
+	```bash
+	export PORT=8080
+	export HOST=0.0.0.0
+	python app.py
+	```
 
 ## Per-IP behavior and proxies
 
